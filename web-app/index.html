@@ -1,9 +1,104 @@
-<!-- In HTML Comments are written like this -->
-<!-- They can all be removed for your apps -->
-<!doctype html> <!-- This first line tells browsers to expect modern standard html 5 -->
-<html lang="en-gb"> <!-- This is indicates the page is written in British English, useful for accessibility -->
-<meta charset="utf-8"> <!-- This indicates how the file is encoded. utf-8 is standard -->
-<title>Your Web-app Title</title> <!-- All pages need a title, this will be displayed in the browser's title bar -->
-<link rel="stylesheet" href="default.css"> <!-- Import style sheet – default.css -->
-<link rel="icon" href="./assets/favicon.png"> <!-- Import 'Favorites Icon' – favicon.png -->
-<script type="module" src="main.js"></script> <!-- Load the main script. Must be type="module". Have only one of these -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Space Maze Chase</title>
+  <link rel="stylesheet" href="default.css" />
+</head>
+<body>
+
+  <button id="music-toggle">🔊</button>
+
+  <header class="header">
+    <h1 class="game-title">Space Maze Chase</h1>
+    <a class="api-link" href="../docs/module-game.html" target="_blank">
+      API Documentation
+    </a>
+  </header>
+
+  <div id="intro-screen" class="intro-screen">
+    <video id="intro-video" class="intro-video" src="assets/movie/newjeans.mp4" playsinline muted></video>
+    <div class="intro-overlay" id="intro-overlay"></div>
+    <div class="intro-story" id="intro-story"></div>
+    <button class="intro-skip" id="intro-skip">Skip ›</button>
+  </div>
+
+  <div id="outro-screen" class="intro-screen is-hidden">
+    <video id="outro-video" class="intro-video" src="assets/movie/newjeans-complete.mp4" playsinline muted></video>
+    <div class="intro-overlay is-dim" id="outro-overlay"></div>
+    <div class="intro-story" id="outro-story"></div>
+    <button class="intro-skip" id="outro-skip">Skip ›</button>
+  </div>
+
+  <div id="level-select-screen" class="level-select-screen">
+    <h2 class="level-select__title">Select Level</h2>
+    <div class="level-select__grid" id="level-select-grid"></div>
+    <p class="level-select__hint">🍪 Collect 4/4 cookies on all levels to unlock a secret ending!</p>
+  </div>
+
+  <main class="game-container" id="game-container">
+
+    <!-- HUD: hearts + steps + cookie icons -->
+    <section class="hud" aria-label="Game status">
+
+      <div class="hud__group">
+        <span class="hud__label">Lives</span>
+        <div class="hud__icons" id="hud-lives" aria-label="Lives"></div>
+      </div>
+
+      <div class="hud__group">
+        <span class="hud__label">Steps</span>
+        <strong id="steps-count" aria-live="polite">40</strong>
+      </div>
+
+      <div class="hud__group">
+        <span class="hud__label">Cookies</span>
+        <div class="hud__icons" id="hud-cookies" aria-label="Cookies collected"></div>
+      </div>
+
+    </section>
+
+    <p class="level-indicator" id="level-display" aria-live="polite">Level 1 / 4</p>
+
+    <!-- Board + end-game overlay wrapped together -->
+    <div class="board-wrapper" id="board-wrapper">
+
+      <section
+        class="board"
+        id="board"
+        role="grid"
+        aria-label="Game board"
+        tabindex="0"
+      ></section>
+
+      <!-- Overlay shown on win / lose -->
+      <div class="overlay" id="overlay" aria-live="assertive" aria-atomic="true">
+        <p class="overlay__title" id="overlay-title"></p>
+        <div class="overlay__cookies" id="overlay-cookies"></div>
+        <p class="overlay__sub" id="overlay-sub"></p>
+        <p class="overlay__countdown" id="overlay-countdown"></p>
+      </div>
+
+    </div>
+
+    <p class="hint" aria-label="Controls hint">
+      Arrow keys to move  •  Collect cookies &amp; reach the exit  •  Alien moves every 2 steps!
+    </p>
+
+    <!-- keep for aria fallback; hidden via CSS -->
+    <p
+      class="status-message"
+      id="status-message"
+      role="status"
+      aria-live="assertive"
+      aria-atomic="true"
+    ></p>
+
+    <button id="reset-button" type="button">Restart Level</button>
+
+  </main>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
